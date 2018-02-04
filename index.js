@@ -1,24 +1,65 @@
-const express = require('express')
-const app = express()
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = 8100;
 
-var message = "";
-var array = {position : [2,34,4], velocity = [-2, 3, 0]}
+var p1 = {
+  pos : [0,0,0]
+}
+var p2 = {
+  pos : [10, 10, 10]
+}
+var ball ={
+  pos : [5, 5, 5],
+  vel : [0, 1, 0]
+}
 
-app.use(express.json());
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/', function(req, res) {
-  res.json(array);
+io.on('connection', onConnection);
+
+function onConnection(socket){
+  console.log("person has connected");
+  socket.on('update1', (data) =>{
+    p1.pos = data;
+  })
+  socket.on('update2', (data) =>{
+    p2.pos = data;
+  })
+  socket.on('updateBall', (data) =>{
+    ball.pos = data.pos;
+    ball.vel = data.vel;
+  })
+  socket.on('marco', ()=>{
+    console.log('polo')
+    socket.emit('polo', "echo");
+  })
+  socket.on('getp1', (data) =>{
+    socket.emit('sendp1', p1)
+  });
+
+  socket.on('getp2', (data) =>{
+    socket.emit('sendp2', p2)
+  });
+
+  socket.on('getball', (data) =>{
+    socket.emit('sendball', ball)
+  });
+}
+
+http.listen(port, function(){
+  console.log('listening on *:8100');
 });
 
-app.post('/', function(req, res) {
-  array = req.body;
-  res.send("POST RECIEVED");
-});
+async function loop( ms , dostuff){
+  var endloop = false;
+  while (!endloop){
+    await sleep(2000);
+  }
+}
 
-app.listen(3000, () => console.log('Server running on port 3000'))
+function sleep(ms){
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
