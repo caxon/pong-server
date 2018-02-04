@@ -12,12 +12,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/', function(req, res, next) {
+app.get('/', function(req, res) {
   res.json(array);
 });
 
-app.post('/', function(req, res, next) {
- // Handle the post for this route
+app.post('/', function(req, res) {
+  array = req.body.array;
+  res.send("POST RECIEVED");
 });
 
 app.listen(3000, () => console.log('Server running on port 3000'))
