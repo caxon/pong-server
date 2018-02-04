@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 var message = "";
-var array = {x : "2", y : "5", z : "3" };
+var array = {position : [2,34,4], velocity = [-2, 3, 0]}
 
 app.use(express.json());
 

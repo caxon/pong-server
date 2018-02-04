@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/caxon/pong-server#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "pm2": "^2.9.3"
