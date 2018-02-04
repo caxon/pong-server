@@ -17,7 +17,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  array = req.body.array;
+  array = req.body;
   res.send("POST RECIEVED");
 });
 
