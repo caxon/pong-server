@@ -3,6 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = 8100;
 
+<<<<<<< HEAD
 var p1 = {
   pos : [0,0,0]
 }
@@ -13,6 +14,10 @@ var ball ={
   pos : [5, 5, 5],
   vel : [0, 1, 0]
 }
+=======
+var message = "";
+var array = {x : "2", y : "5", z : "3" };
+>>>>>>> parent of 9edb786... .
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
